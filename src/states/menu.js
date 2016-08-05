@@ -3,13 +3,29 @@ class Menu extends Phaser.State {
     constructor() {
         super();
     }
-
+    getHeader(t) {
+        var header = this.game.add.text( this.game.world.centerX,this.game.world.centerY, t);
+        header.font = 'Bungee';
+        header.fontSize = 60;
+        header.padding.set(10, 16);
+        header.stroke = '#000000';
+        header.strokeThickness = 8;
+        header.fill='pink';
+        header.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+        header.anchor.set(.5, .5);
+        const tween = this.game.add.tween(header.scale)
+            .to({ x: 1  , y: 2.5 }, 500, Phaser.Easing.Quadratic.In, false, 0, -1, true);
+        tween.start();    
+        return header;
+    }
     create() {
         //add background image
-        this.background = this.game.add.sprite(0, 0, 'background');
-        this.background.height = this.game.world.height;
-        this.background.width = this.game.world.width;
+        // this.background = this.game.add.sprite(0, 0, 'background');
+        // this.background.height = this.game.world.height;
+        // this.background.width = this.game.world.width;
+        this.filter = new Phaser.Filter(this.game, null, this.game.cache.getShader('bacteria'));
 
+        this.filter.addToWorld(0, 0, this.game.world.width, this.game.world.height);
         //add some fancy transition effects
         this.ready = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'text_ready');
         this.ready.anchor.set(0.5, 0.5);
@@ -19,17 +35,16 @@ class Menu extends Phaser.State {
         this.go.visible = false;
 
         //add intro text
-        this.menuText = this.add.text(this.game.world.centerX, this.game.world.centerY, 'Click to play', {
-            font: '42px Arial', fill: '#ffffff', align: 'center'
-        });
-        this.menuText.anchor.set(0.5);
+        this.menuText = this.getHeader('Hace lo que te digo');
 
         this.input.onDown.add(this.onInputDown, this);
         this.input.onDown.add(this.justFuckingStart, this);
         this.canContinueToNextState = true;
     }
 
-    update() { }
+    update() { 
+        this.filter.update();
+    }
 
     justFuckingStart() {
         this.game.state.start('simonsays');

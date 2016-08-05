@@ -21,9 +21,14 @@ class SimonSaysState extends Phaser.State {
         this.simon = new Simon(this.game, this.game.world.centerX, this.game.world.centerY);
         this.simon.scale.set(2);
         //add background image
-        this.background = this.game.add.sprite(0, 0, 'background');
-        this.background.height = this.game.world.height;
-        this.background.width = this.game.world.width;
+        // this.background = this.game.add.sprite(0, 0, 'background');
+        // this.background.height = this.game.world.height;
+        // this.background.width = this.game.world.width;
+      
+        this.filter = new Phaser.Filter(this.game, null, this.game.cache.getShader('bacteria'));
+
+        this.filter.addToWorld(0, 0, this.game.world.width, this.game.world.height);
+    
         this.game.add.existing(this.simon);
 
         this.keys = this.game.input.keyboard.addKeys({
@@ -139,9 +144,9 @@ class SimonSaysState extends Phaser.State {
         }
     }
     //Code ran on each frame of game
-    // update() {
-
-    // }
+    update() {
+        this.filter.update();
+    }
 
     //Called when game is paused
     // paused() {

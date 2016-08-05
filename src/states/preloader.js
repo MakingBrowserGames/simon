@@ -33,13 +33,16 @@ class Preloader extends Phaser.State {
         this.game.load.audio('track2', 'assets/track2.mp3');
         this.game.load.audio('track3', 'assets/track3.mp3');
         this.game.load.audio('track4', 'assets/track4.mp3');
+
+        //  From http://glslsandbox.com/e#20193.0
+        this.game.load.shader('bacteria', 'assets/bacteria.frag');
     }
 
     onLoadComplete() {
         console.log('preloading complete');
         WebFont.load({
             google: {
-                families: ['Creepster', 'Revalia', 'Fontdiner Swanky']
+                families: ['Bungee', 'Creepster', 'Revalia', 'Fontdiner Swanky']
             }
         });
         this.game.state.start('menu');

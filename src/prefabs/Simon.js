@@ -69,25 +69,25 @@ class Simon extends Phaser.Sprite {
         var buttons = this.buttons,
             frame;
         switch (button) {
-            case buttons.TOP_LEFT:
-                frame = 1;
-                break;
-            case buttons.TOP_RIGHT:
-                frame = 2;
+        case buttons.TOP_LEFT:
+            frame = 1;
+            break;
+        case buttons.TOP_RIGHT:
+            frame = 2;
 
-                break;
-            case buttons.BOTTOM_RIGHT:
+            break;
+        case buttons.BOTTOM_RIGHT:
 
-                frame = 3;
-                break;
-            case buttons.BOTTOM_LEFT:
-                frame = 4;
+            frame = 3;
+            break;
+        case buttons.BOTTOM_LEFT:
+            frame = 4;
 
-                break;
+            break;
 
-            default:
-                frame = 0;
-                break;
+        default:
+            frame = 0;
+            break;
         }
         this.frame = frame;
         this.actionsSounds[button].play();

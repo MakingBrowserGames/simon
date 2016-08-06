@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import Simon from '../prefabs/Simon';
-
+import ParalaxMountains from '../prefabs/ParalaxMountains';
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class SimonSaysState extends Phaser.State {
 
@@ -18,18 +18,11 @@ class SimonSaysState extends Phaser.State {
 
     //Setup code, method called after preload
     create() {
+        this.bg = new ParalaxMountains(this.game, this.game.world);
         this.simon = new Simon(this.game, this.game.world.centerX, this.game.world.centerY);
         this.simon.scale.set(2);
-        //add background image
-        // this.background = this.game.add.sprite(0, 0, 'background');
-        // this.background.height = this.game.world.height;
-        // this.background.width = this.game.world.width;
-      
-        this.filter = new Phaser.Filter(this.game, null, this.game.cache.getShader('bacteria'));
-
-        this.filter.addToWorld(0, 0, this.game.world.width, this.game.world.height);
-    
         this.game.add.existing(this.simon);
+    
 
         this.keys = this.game.input.keyboard.addKeys({
             'TOP_LEFT': Phaser.KeyCode.Q,
@@ -68,12 +61,9 @@ class SimonSaysState extends Phaser.State {
         this.actionSequence = [];
         this.timer = this.game.time.create(false);
         this.timer.start();
-        // this.test();
-        // this.nextTurnSignal
         this.nextTurn(true);
     }
     onButton(button) {
-        var self = this;
         console.log('Button: ', button);
         this.simon.play(button);
         if (this.currentlyPlaying.length > 0) {
@@ -94,12 +84,10 @@ class SimonSaysState extends Phaser.State {
     }
     readnput() {
         console.log('your turn!');
-        // this.game.state.start('ISayState');
         this.score.style.fill = '#ffffff';
         this.statusText.setText('TU TURNO!');
         this.currentlyPlaying = this.actionSequence.slice();
         this.game.input.enabled = true;
-        // new Phaser.Signal();
     }
     nextTurn(addOne) {
         var finishedPlaying = new Phaser.Signal(),
@@ -132,8 +120,6 @@ class SimonSaysState extends Phaser.State {
             var self = this;
             var next = this.currentlyPlaying.shift();
             this.simon.play(next);
-            // next.call(this.simon);
-
             this.timer.add(1500, () => {
                 self.playNext(signal);
             }, self);
@@ -145,7 +131,7 @@ class SimonSaysState extends Phaser.State {
     }
     //Code ran on each frame of game
     update() {
-        this.filter.update();
+        this.bg.update();
     }
 
     //Called when game is paused
@@ -153,7 +139,6 @@ class SimonSaysState extends Phaser.State {
 
     // }
     randomButton() {
-        // var actions = [this.simon.topLeft, this.simon.topRight, this.simon.bottomRight, this.simon.bottomLeft];
         var r = Math.random() * Object.keys(this.simon.buttons).length;
         r = Math.floor(r);
         return Object.keys(this.simon.buttons)[r];
@@ -161,7 +146,7 @@ class SimonSaysState extends Phaser.State {
 
     //You're able to do any final post-processing style effects here.
     // render() {
-    //   // this.simon.re
+    // //   this.bg.render();
     // }
 
     //Called when switching to a new state

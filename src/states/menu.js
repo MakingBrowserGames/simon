@@ -7,7 +7,7 @@ class Menu extends Phaser.State {
     }
     getHeader(t) {
         var header = this.game.add.text(this.game.world.centerX, this.game.world.centerY, t);
-        header.font = 'Bungee';
+        header.font = 'Permanent Marker';
         header.fontSize = 60;
         header.padding.set(10, 16);
         header.stroke = '#000000';

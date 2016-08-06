@@ -9,6 +9,11 @@ class ParalaxMountains {
         this.game = game;
         // this.parent = parent;
         this.ready=false;
+        this.clouds = this.game.add.tileSprite(0,
+            0, this.game.width,
+            this.game.cache.getImage('clouds').height,
+            'clouds'
+        );
         this.mountainsBack = this.game.add.tileSprite(0,
             this.game.height - this.game.cache.getImage('mountains-back').height,
             this.game.width,
@@ -23,6 +28,12 @@ class ParalaxMountains {
             'mountains-mid1'
         );
         // this.addChild(this.mountainsMid1);
+        this.clouds2 = this.game.add.tileSprite(0,
+            0, this.game.width,
+            this.game.cache.getImage('clouds').height,
+            'clouds'
+        );
+        this.clouds2.tileScale.setTo(-.5, .5);
 
         this.mountainsMid2 = this.game.add.tileSprite(0,
             this.game.height - this.game.cache.getImage('mountains-mid2').height,
@@ -51,6 +62,8 @@ class ParalaxMountains {
         this.mountainsBack.tilePosition.x -= 0.05;
         this.mountainsMid1.tilePosition.x -= 0.3;
         this.mountainsMid2.tilePosition.x -= 0.75;
+        this.clouds.tilePosition.x += .1;
+        this.clouds2.tilePosition.x += .5;
     }
     // postUpdate(){
 

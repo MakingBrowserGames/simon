@@ -1,4 +1,4 @@
-class Menu extends Phaser.State {
+class GameOverState extends Phaser.State {
 
     constructor() {
         super();
@@ -6,10 +6,16 @@ class Menu extends Phaser.State {
 
     create() {
         //add background image
-        this.background = this.game.add.sprite(0, 0, 'background');
-        this.background.height = this.game.world.height;
-        this.background.width = this.game.world.width;
-
+        var self = this;
+        this.background = this.game.add.tileSprite(
+            0, 0,
+            self.game.width, 
+            self.game.cache.getImage('arboles').height, 
+            'arboles'
+        );
+        // this.background.height = this.game.world.height;
+        // this.background.width = this.game.world.width;
+        this.game.add.sound('perdiste').play();
         //add intro text
         this.gameoverText = this.add.text(this.game.world.centerX, this.game.world.centerY, 'Score = ' + this.game.global.score, {
             font: '42px Arial',
@@ -50,4 +56,4 @@ class Menu extends Phaser.State {
 
 }
 
-export default Menu;
+export default GameOverState;

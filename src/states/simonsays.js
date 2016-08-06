@@ -39,7 +39,7 @@ class SimonSaysState extends Phaser.State {
             this.onButton(button);
         }, this);
         this.score = this.game.add.text(0, 0, 'Score: 0');
-        this.score.font = 'Creepster';
+        this.score.font = 'Permanent Marker';
         this.score.fontSize = 60;
         this.score.padding.set(10, 16);
         this.score.stroke = '#000000';
@@ -47,12 +47,12 @@ class SimonSaysState extends Phaser.State {
         this.score.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
         this.score.anchor.set(0);
         this.statusText = this.add.text(this.game.world.width, 0, 'WAIT', {
-            font: 'Fontdiner Swanky',
+            font: 'Permanent Marker',
             fill: '#ffffff',
             align: 'left'
         });
         this.statusText.anchor.set(1, 0);
-        this.statusText.font = 'Creepster';
+        this.statusText.font = 'Permanent Marker';
         this.statusText.fontSize = 60;
         this.statusText.padding.set(10, 16);
         this.statusText.stroke = '#000000';
@@ -74,7 +74,10 @@ class SimonSaysState extends Phaser.State {
                     this.timer.add(2000, () => { this.nextTurn(true); });
                 }
             } else {
-                this.timer.add(2000, () => { this.nextTurn(); });
+                this.timer.add(2000, () => { 
+                    this.state.start('gameover');
+                    // this.nextTurn(); 
+                });
                 console.log('you suck!');
             }
         }

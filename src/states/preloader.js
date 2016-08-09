@@ -1,3 +1,4 @@
+/* eslint-disable no-console*/
 class Preloader extends Phaser.State {
 
     constructor() {
@@ -21,7 +22,7 @@ class Preloader extends Phaser.State {
         this.game.load.image('mountains-back', 'assets/mountains-back.png');
         this.game.load.image('mountains-mid1', 'assets/mountains-mid1.png');
         this.game.load.image('mountains-mid2', 'assets/mountains-mid2.png');
-        this.game.load.image('arboles', 'assets/BackgroundTree@2x-ipad.png');
+        this.game.load.image('city-bg', 'assets/city_background_night.png');
 
         // this.game.load.image('crosshairs', 'assets/crosshair_red_small.png');
         // this.game.load.image('text_go', 'assets/text_go.png');

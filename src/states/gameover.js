@@ -1,3 +1,5 @@
+import NiceText from '../prefabs/NiceText';
+
 class GameOverState extends Phaser.State {
 
     constructor() {
@@ -6,23 +8,47 @@ class GameOverState extends Phaser.State {
 
     create() {
         //add background image
-        var self = this;
-        this.background = this.game.add.tileSprite(
+        var city = this.game.add.tileSprite(
             0, 0,
-            self.game.width, 
-            self.game.cache.getImage('arboles').height, 
-            'arboles'
+            this.game.width,
+            this.game.height,
+            'city-bg'
         );
-        // this.background.height = this.game.world.height;
-        // this.background.width = this.game.world.width;
+        // city.anchor.setTo(0,1);
+        city.tileScale.setTo(this.game.world.height/city.texture.height);
+        // var trees = this.game.add.tileSprite(
+        //     0, 0,
+        //     self.game.width, 
+        //     self.game.height, 
+        //     'arboles'
+        // );
+        // scale = this.game.world.height / trees.texture.height;
+        // trees.tileScale.setTo(scale);
+        // trees.anchor.setTo(0,0);
+        // trees.tilePosition.setTo(0,0);
+        // trees.height = this.game.world.height;
+        // trees.width = this.game.world.width;
         this.game.add.sound('perdiste').play();
         //add intro text
-        this.gameoverText = this.add.text(this.game.world.centerX, this.game.world.centerY, 'Score = ' + this.game.global.score, {
-            font: '42px Arial',
-            fill: '#ffffff',
-            align: 'center'
-        });
-        this.gameoverText.anchor.set(0.5);
+        this.gameoverText = new NiceText(this.game, this.game.world.centerX,
+        32, 'Game Over!'  
+        );
+        this.gameoverText.fontSize=90;
+        this.gameoverText.anchor.setTo(.5,0);
+        this.game.add.existing(this.gameoverText);
+
+        this.scoreText = new NiceText(this.game, 
+            this.game.world.centerX, 
+            this.gameoverText.bottom, 
+            'Score = ' + this.game.global.score
+        );
+        this.game.add.existing(this.scoreText);
+        // this.scoreText = this.add.text(this.game.world.centerX, this.game.world.centerY, 'Score = ' + this.game.global.score, {
+        //     font: '42px Arial',
+        //     fill: '#ffffff',
+        //     align: 'center'
+        // });
+        this.scoreText.anchor.set(0.5,0);
 
         this.input.onDown.add(this.onInputDown, this);
 
@@ -34,6 +60,8 @@ class GameOverState extends Phaser.State {
 
         this.saveVarsToLocalStorage();
         this.resetGlobalVariables();
+        // this.trees = trees;
+        this.cityBackground=city;
     }
 
     saveVarsToLocalStorage() {
@@ -46,7 +74,10 @@ class GameOverState extends Phaser.State {
     resetGlobalVariables() {
         this.game.global.score = 0;
     }
-    update() {}
+    update() {
+        this.cityBackground.tilePosition.x -= .1;
+        // this.trees.tilePosition.x -= .3;
+    }
 
     onInputDown() {
         if (this.canContinueToNextState) {

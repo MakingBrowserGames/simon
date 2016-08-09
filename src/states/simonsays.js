@@ -71,6 +71,7 @@ class SimonSaysState extends Phaser.State {
             if (button == expected) {
                 console.log('its a match');
                 if (this.finishedSequence()) {
+                    this.incScore(10);
                     this.timer.add(2000, () => { this.nextTurn(true); });
                 }
             } else {
@@ -108,7 +109,10 @@ class SimonSaysState extends Phaser.State {
 
     generateNewAction() {
         this.actionSequence.push(this.randomButton());
-        this.score.text = 'Score: ' + this.actionSequence.length;
+        this.score.text = 'Score: ' + this.game.global.score;
+    }
+    incScore(value) {
+        this.game.global.score += value;
     }
     playSequence(signal) {
         console.log(this.actionSequence);

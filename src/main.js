@@ -3,8 +3,6 @@ import Gameover from './states/gameover';
 import Menu from './states/menu';
 import Preloader from './states/preloader';
 import SimonSaysState from './states/simonsays';
-// import ISayState from './states/ISayState';
-
 
 const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'simon-game');
 game.state.add('boot', new Boot());
